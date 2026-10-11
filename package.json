@@ -1,0 +1,99 @@
+{
+  "name": "lamma-desktop",
+  "productName": "LAMMA",
+  "version": "0.3.0",
+  "description": "LAMMA party games by Almadarek Games - host app for your TV or laptop",
+  "author": "Almadarek Games",
+  "main": "main.js",
+  "private": true,
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder",
+    "dist:win": "electron-builder --win",
+    "dist:mac": "electron-builder --mac",
+    "dist:linux": "electron-builder --linux",
+    "dist:portable": "electron-builder --win portable"
+  },
+  "devDependencies": {
+    "electron": "33.4.11",
+    "electron-builder": "25.1.8"
+  },
+  "build": {
+    "appId": "website.lammaonline.host",
+    "productName": "LAMMA",
+    "copyright": "© 2026 Almadarek Games",
+    "files": [
+      "main.js",
+      "preload.js",
+      "offline.html",
+      "build/icon.png",
+      "build/icon.ico"
+    ],
+    "directories": {
+      "output": "dist",
+      "buildResources": "build"
+    },
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "signAndEditExecutable": true
+    },
+    "nsis": {
+      "oneClick": true,
+      "perMachine": false,
+      "artifactName": "LAMMA-Setup-${version}.exe",
+      "createDesktopShortcut": "always",
+      "createStartMenuShortcut": true,
+      "shortcutName": "LAMMA",
+      "runAfterFinish": true,
+      "include": "build/installer.nsh"
+    },
+    "portable": {
+      "artifactName": "LAMMA-Portable-${version}.exe"
+    },
+    "mac": {
+      "target": [
+        "dmg"
+      ],
+      "category": "public.app-category.games",
+      "artifactName": "LAMMA-${version}-${arch}.dmg"
+    },
+    "linux": {
+      "target": [
+        "AppImage"
+      ],
+      "category": "Game",
+      "artifactName": "LAMMA-${version}.AppImage"
+    },
+    "appx": {
+      "applicationId": "LAMMA",
+      "identityName": "Sladewilsontv.LAMMA",
+      "publisher": "CN=F21FAFD6-3018-41CE-A2A4-B8308090E59C",
+      "publisherDisplayName": "Sladewilsontv",
+      "displayName": "لمّة LAMMA",
+      "backgroundColor": "#1e1033",
+      "languages": [
+        "ar-EG",
+        "en-US"
+      ],
+      "artifactName": "LAMMA-Store-${version}.appx"
+    },
+    "publish": [
+      {
+        "provider": "generic",
+        "url": "https://www.lammaonline.website/downloads"
+      }
+    ]
+  },
+  "dependencies": {
+    "electron-updater": "6.3.9"
+  },
+  "license": "MIT",
+  "repository": "https://github.com/yousefimam1-cmyk/lamma-desktop"
+}
