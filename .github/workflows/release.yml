@@ -82,4 +82,9 @@ jobs:
         run: |
           NOTE="Signed by SignPath Foundation"
           [ "$SIGNED" = "true" ] || NOTE="UNSIGNED build (signing not set up yet)"
-          gh release create "$GITHUB_REF_NAME" out/LAMMA-Setup.exe out/latest.yml --title "LAMMA $GITHUB_REF_NAME" --notes "$NOTE"
+          if gh release view "$GITHUB_REF_NAME" >/dev/null 2>&1; then
+            gh release upload "$GITHUB_REF_NAME" out/LAMMA-Setup.exe out/latest.yml --clobber
+            gh release edit "$GITHUB_REF_NAME" --notes "$NOTE"
+          else
+            gh release create "$GITHUB_REF_NAME" out/LAMMA-Setup.exe out/latest.yml --title "LAMMA $GITHUB_REF_NAME" --notes "$NOTE"
+          fi
